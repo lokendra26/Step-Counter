@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".firstFragment"
+    tools:context=".ProfileFragment"
     android:background="@drawable/gradient_background">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="First Fragment"
+        android:text="Profile Fragment"
         android:gravity="center"
         android:textColor="@color/cardview_light_background"/>
 
