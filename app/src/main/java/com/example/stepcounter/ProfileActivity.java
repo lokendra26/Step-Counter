@@ -16,7 +16,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        //Initialize and Assign Variable
+        //Initialize And Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected
@@ -25,25 +25,28 @@ public class ProfileActivity extends AppCompatActivity {
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuitem) {
+                switch (menuitem.getItemId()) {
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         overridePendingTransition(0,0);
+                        finish();
                         return true;
                     case R.id.sleep:
-                        startActivity(new Intent(getApplicationContext(),SleepActivity.class));
+                        startActivity(new Intent(getApplicationContext(), SleepActivity.class));
                         overridePendingTransition(0,0);
+                        finish();
                         return true;
                     case R.id.water:
-                        startActivity(new Intent(getApplicationContext(),WaterActivity.class));
+                        startActivity(new Intent(getApplicationContext(), WaterActivity.class));
                         overridePendingTransition(0,0);
+                        finish();
                         return true;
                     case R.id.profile:
+
                         return true;
 
                 }
-
                 return false;
             }
         });
