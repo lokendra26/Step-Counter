@@ -7,10 +7,11 @@
     tools:context=".SleepActivity">
 
     <TextView
+        android:id="@+id/sleepView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sleep"
-        android:textSize="50sp"
+
+        android:textSize="80sp"
         android:textStyle="bold"
         android:layout_centerInParent="true"/>
 
@@ -23,5 +24,25 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:id="@+id/ageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Age"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/ageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ageView"
+        android:layout_marginTop="36dp"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
+
 
 </RelativeLayout>
