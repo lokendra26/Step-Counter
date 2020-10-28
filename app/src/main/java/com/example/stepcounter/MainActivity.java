@@ -20,6 +20,11 @@ public class MainActivity extends AppCompatActivity {
 
     private SliderAdapter sliderAdapter;
 
+    private Button mNextBtn;
+    private Button mBackBtn;
+
+    private int mCurrentPage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         mSlideViewPager = (ViewPager) findViewById(R.id.slideViewPager);
         mDotLayout= (LinearLayout) findViewById(R.id.dotsLayout);
 
+        mNextBtn = (Button) findViewById(R.id.nextBtn);
+        mBackBtn = (Button) findViewById(R.id.prevBtn);
+
         sliderAdapter = new SliderAdapter(this);
 
         mSlideViewPager.setAdapter(sliderAdapter);
@@ -35,6 +43,30 @@ public class MainActivity extends AppCompatActivity {
         addDotsIndicator(0);
 
         mSlideViewPager.addOnPageChangeListener(viewListener);
+
+        //OnClickListeners
+
+        mNextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mCurrentPage==2) {
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    finish();
+                }
+                else{
+                    mSlideViewPager.setCurrentItem(mCurrentPage+1);
+                }
+
+            }
+        });
+
+        mBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSlideViewPager.setCurrentItem(mCurrentPage-1);
+
+            }
+        });
 
         /* Button getStarted = (Button) findViewById(R.id.GetStarted);
 
@@ -83,6 +115,36 @@ public class MainActivity extends AppCompatActivity {
         public void onPageSelected(int i) {
 
             addDotsIndicator(i);
+
+            mCurrentPage = i;
+
+            if(i==0) {
+                mNextBtn.setEnabled(true);
+                mBackBtn.setEnabled(false);
+                mBackBtn.setVisibility(View.INVISIBLE);
+
+                mNextBtn.setText("Next");
+                mBackBtn.setText("");
+            }
+            else if(i == mDots.length-1) {
+
+                mNextBtn.setEnabled(true);
+                mBackBtn.setEnabled(true);
+                mBackBtn.setVisibility(View.VISIBLE);
+
+                mNextBtn.setText("Finish");
+                mBackBtn.setText("Back");
+
+            }
+            else {
+
+                mNextBtn.setEnabled(true);
+                mBackBtn.setEnabled(true);
+                mBackBtn.setVisibility(View.VISIBLE);
+
+                mNextBtn.setText("Next");
+                mBackBtn.setText("Back");
+            }
 
         }
 
