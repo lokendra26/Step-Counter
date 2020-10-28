@@ -24,23 +24,23 @@ public class SliderAdapter extends PagerAdapter {
 
     //Arrays
     public  int[] slide_images= {
-            R.drawable.eat_icon,
+            R.drawable.walk_icon,
             R.drawable.sleep_icon,
-            R.drawable.code_icon
+            R.drawable.water_icon
     };
 
     public String[] slide_headings = {
 
-            "EAT",
+            "WALK",
             "SLEEP",
-            "CODE"
+            "DRINK"
 
     };
 
     public String[] slide_desc = {
-            "In this tutorial I will be showing you how to create Onboarding screen in Android Studio from scratch without using any library."+"aliqua",
-            "In this tutorial I will be showing you how to create Onboarding screen in Android Studio from scratch without using any library."+"aliqua",
-            "In this tutorial I will be showing you how to create Onboarding screen in Android Studio from scratch without using any library."+"aliqua"
+            "Count your daily steps with us in the app.",
+            "Determine your daily sleep hours with us in the app.",
+            "Determine your daily water intake with us in the app."
     };
 
     @Override

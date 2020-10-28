@@ -33,7 +33,7 @@
         android:layout_marginTop="20dp"
         android:padding="15dp"
         android:text="In this tutorial I will be showing you how to create Onboarding screen in Android Studio from scratch without using any library."
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textAlignment="center"
         android:gravity="center_horizontal"
         android:textColor="@color/colorTransparentWhite"/>
