@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginTop="30dp">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/slide_image"
         android:layout_width="251dp"
         android:layout_height="240dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/eat_icon" />
 
@@ -21,7 +21,8 @@
         android:layout_marginTop="40dp"
         android:text="HEADING"
         android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textColor="@color/colorTransparentWhite"/>
 
     <TextView
         android:id="@+id/slide_desc"
@@ -29,10 +30,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/slide_heading"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:padding="35dp"
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
         android:text="In this tutorial I will be showing you how to create Onboarding screen in Android Studio from scratch without using any library."
         android:textSize="16sp"
         android:textAlignment="center"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorTransparentWhite"/>
 </RelativeLayout>
