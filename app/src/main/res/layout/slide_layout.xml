@@ -8,7 +8,7 @@
         android:id="@+id/slide_image"
         android:layout_width="251dp"
         android:layout_height="240dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/eat_icon" />
 
@@ -30,8 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/slide_heading"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:padding="15dp"
+        android:layout_marginTop="40dp"
+        android:padding="25dp"
         android:text="In this tutorial I will be showing you how to create Onboarding screen in Android Studio from scratch without using any library."
         android:textSize="18sp"
         android:textAlignment="center"
