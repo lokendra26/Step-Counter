@@ -2,7 +2,9 @@ package com.example.stepcounter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -102,6 +104,20 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NotificationCompat.Builder mbuilder = (NotificationCompat.Builder)
+                new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.stepcounter)
+                .setContentTitle("Step Counter")
+                .setContentText("Step Counter app is active...");
+
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0,mbuilder.build());
     }
 
     @Override
