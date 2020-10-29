@@ -9,8 +9,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,15 +26,17 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
     private boolean isCounterSensorPresent;
     int stepCount;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         textViewStepCounter = findViewById(R.id.textViewStepCounter);
+        progressBar = findViewById(R.id.progress_bar);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
         {
             mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -42,6 +46,25 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
             textViewStepCounter.setText("Counter sensor is not present");
             isCounterSensorPresent = false;
         }
+        /*final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(stepCount<=6000) {
+
+
+                    progressBar.setProgress(stepCount);
+
+                    handler.postDelayed(this,0);
+                }
+                else {
+                    handler.removeCallbacks(this);
+                }
+
+            }
+        },0);*/
+
+
 
 
 
@@ -83,10 +106,29 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if(sensorEvent.sensor == mStepCounter) {
-            stepCount = (int) sensorEvent.values[0];
-            textViewStepCounter.setText(String.valueOf(stepCount));
-        }
+
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(stepCount<=6000) {
+
+                    if(sensorEvent.sensor == mStepCounter) {
+                        stepCount = (int) sensorEvent.values[0];
+                        textViewStepCounter.setText(String.valueOf(stepCount));
+                    }
+
+                    progressBar.setProgress(stepCount/60);
+
+                    handler.postDelayed(this,0);
+                }
+                else {
+                    handler.removeCallbacks(this);
+                }
+
+            }
+        },0);
     }
 
     @Override
