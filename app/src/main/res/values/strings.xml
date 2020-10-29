@@ -6,4 +6,6 @@
     <string name="home">Home</string>
     <string name="sleep">Sleep</string>
     <string name="water">Water</string>
+    <string name="profile">Profile</string>
+
 </resources>

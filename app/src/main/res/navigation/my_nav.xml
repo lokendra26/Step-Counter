@@ -20,4 +20,9 @@
         android:name="com.example.stepcounter.ThirdFragment"
         android:label="fragment_third"
         tools:layout="@layout/fragment_third" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.stepcounter.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

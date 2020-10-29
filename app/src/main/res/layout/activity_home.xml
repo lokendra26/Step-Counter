@@ -7,7 +7,54 @@
     tools:context=".HomeActivity"
     android:layout_weight="10">
 
-    <FrameLayout
+    <RelativeLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_margin="50dp">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/circle_shape"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/circle_progress_bar"
+            android:textAlignment="center"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/textViewStepCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"/>
+
+            <!--android:layout_centerInParent="true"-->/>
+
+    </RelativeLayout>
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_navigation"
+        app:itemBackground="@color/colorPrimary"
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/menu_navigation"
+        android:layout_alignParentBottom="true"/>
+
+
+
+
+    <!-- <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/container"
@@ -18,7 +65,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/bottomNav"
         android:layout_alignParentBottom="true"
-        android:background="#3c65a5"
+        android:background="@android:color/background_light"
         app:menu="@menu/bottom_menu"
-        />
+        /> -->
 </RelativeLayout>

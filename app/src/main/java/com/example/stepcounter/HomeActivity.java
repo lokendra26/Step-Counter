@@ -2,69 +2,171 @@ package com.example.stepcounter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
 
-    private BottomNavigationView bottomNavigationView;
+public class HomeActivity extends AppCompatActivity implements SensorEventListener {
+    private TextView textViewStepCounter;
+    private SensorManager sensorManager;
+    private Sensor mStepCounter;
+    private boolean isCounterSensorPresent;
+    int stepCount;
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);Fragment fragment=null;
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        textViewStepCounter = findViewById(R.id.textViewStepCounter);
+        progressBar = findViewById(R.id.progress_bar);
 
-        bottomNavigationView = findViewById(R.id.bottomNav);
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
+        {
+            mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            isCounterSensorPresent =true;
+        }
+        else {
+            textViewStepCounter.setText("Counter sensor is not present");
+            isCounterSensorPresent = false;
+        }
+        /*final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(stepCount<=6000) {
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new firstFragment()).commit();
+
+                    progressBar.setProgress(stepCount);
+
+                    handler.postDelayed(this,0);
+                }
+                else {
+                    handler.removeCallbacks(this);
+                }
+
+            }
+        },0);*/
+
+
+
+
+
+
+        //Initialize And Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //Perform ItemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuitem) {
+                switch (menuitem.getItemId()) {
+                    case R.id.home:
+                        return true;
+                    case R.id.sleep:
+                        startActivity(new Intent(getApplicationContext(), SleepActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                        return true;
+                    case R.id.water:
+                        startActivity(new Intent(getApplicationContext(), WaterActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                        return true;
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        overridePendingTransition(0,0);
+                        finish();
+                        return true;
+
+                }
+                return false;
+            }
+        });
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new
-            BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        NotificationCompat.Builder mbuilder = (NotificationCompat.Builder)
+                new NotificationCompat.Builder(getApplicationContext())
+                .setSmallIcon(R.drawable.stepcounter)
+                .setContentTitle("Step Counter")
+                .setContentText("Step Counter app is active...");
 
-                    Fragment fragment=null;
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0,mbuilder.build());
+    }
 
-                    switch (item.getItemId())
-                    {
-                        case R.id.firstFragment:
-                            fragment=new firstFragment();
-                            break;
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
 
-                        case R.id.secondFragment:
-                            fragment=new SecondFragment();
-                            break;
 
-                        case R.id.thirdFragment:
-                            fragment=new ThirdFragment();
-                            break;
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(stepCount<=6000) {
+
+                    if(sensorEvent.sensor == mStepCounter) {
+                        stepCount = (int) sensorEvent.values[0];
+                        textViewStepCounter.setText(String.valueOf(stepCount));
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
 
-                    return true;
+                    progressBar.setProgress(stepCount/60);
+
+                    handler.postDelayed(this,0);
                 }
-            };
+                else {
+                    handler.removeCallbacks(this);
+                }
+
+            }
+        },0);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
+        {
+            sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
+        {
+            sensorManager.unregisterListener(this, mStepCounter);
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
