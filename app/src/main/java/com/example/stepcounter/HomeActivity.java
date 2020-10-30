@@ -23,6 +23,7 @@ import org.w3c.dom.Text;
 
 public class HomeActivity extends AppCompatActivity implements SensorEventListener {
     private TextView textViewStepCounter;
+    private TextView progressPercent;
     private SensorManager sensorManager;
     private Sensor mStepCounter;
     private boolean isCounterSensorPresent;
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         textViewStepCounter = findViewById(R.id.textViewStepCounter);
         progressBar = findViewById(R.id.progress_bar);
+        progressPercent = findViewById(R.id.progress_percent);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
@@ -118,6 +120,8 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
         NotificationManager notificationManager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0,mbuilder.build());
+
+
     }
 
     @Override
@@ -138,6 +142,14 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
                     progressBar.setProgress(stepCount/60);
 
                     handler.postDelayed(this,0);
+
+                    //progress percent
+                    if(stepCount<=6000) {
+                        progressPercent.setText(String.valueOf(stepCount/60)+"%");
+                    }
+                    else {
+                        progressPercent.setText("100%");
+                    }
                 }
                 else {
                     handler.removeCallbacks(this);
@@ -159,6 +171,7 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
         {
             sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
         }
+
     }
 
     @Override
