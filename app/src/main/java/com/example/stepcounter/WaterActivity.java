@@ -6,15 +6,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class WaterActivity extends AppCompatActivity {
 
+    private TextView weightTextView;
+    private TextView waterView;
+    double waterVolume=0.00;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water);
+
+        weightTextView = findViewById(R.id.weightTextView);
+        waterView = findViewById(R.id.waterView);
+
+
+
+
+
 
         //Initialize And Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -51,4 +64,49 @@ public class WaterActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String weightString = weightTextView.getText().toString();
+        double value=0.00;
+        if(!"".equals(weightString)) {
+            value = Double.parseDouble(weightString);
+        }
+
+        if(value<0.0) {
+            waterView.setText("Weight can not be less than 0.");
+        }
+        else {
+            waterVolume = value*0.033;
+        }
+        //waterView.setText(String.valueOf(waterVolume) + " Litre");
+        waterView.setText(String.format("%.1f",waterVolume) + " Litre");
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

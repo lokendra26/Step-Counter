@@ -111,15 +111,7 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onStart() {
         super.onStart();
-        NotificationCompat.Builder mbuilder = (NotificationCompat.Builder)
-                new NotificationCompat.Builder(getApplicationContext())
-                .setSmallIcon(R.drawable.stepcounter)
-                .setContentTitle("Step Counter")
-                .setContentText("Step Counter app is active...");
 
-        NotificationManager notificationManager = (NotificationManager)
-                getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0,mbuilder.build());
 
 
     }
@@ -172,6 +164,17 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
             sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
+
+
+        NotificationCompat.Builder mbuilder = (NotificationCompat.Builder)
+                new NotificationCompat.Builder(getApplicationContext())
+                        .setSmallIcon(R.drawable.stepcounter)
+                        .setContentTitle("Step Counter")
+                        .setContentText("Step Counter app is active...");
+
+        NotificationManager notificationManager = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0,mbuilder.build());
     }
 
     @Override

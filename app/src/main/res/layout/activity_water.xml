@@ -7,9 +7,9 @@
     tools:context=".WaterActivity">
 
     <TextView
+        android:id="@+id/waterView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Water"
         android:textSize="50sp"
         android:textStyle="bold"
         android:layout_centerInParent="true"/>
@@ -23,5 +23,25 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:id="@+id/weightView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weight(Kg)"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/weightTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weightView"
+        android:layout_marginTop="36dp"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:text="63"/>
 
 </RelativeLayout>
