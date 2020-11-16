@@ -26,6 +26,7 @@
             />
 
         <EditText
+            android:id="@+id/ageEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -58,6 +59,7 @@
             />
 
         <EditText
+            android:id="@+id/heightEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -90,6 +92,7 @@
             />
 
         <EditText
+            android:id="@+id/weightEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -122,6 +125,7 @@
             />
 
         <EditText
+            android:id="@+id/genderEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -153,6 +157,7 @@
             />
 
         <EditText
+            android:id="@+id/stepEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -166,6 +171,7 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/submitbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
