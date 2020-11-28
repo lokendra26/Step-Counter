@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class DetailsCollect extends AppCompatActivity implements View.OnClickListener{
+public class DetailsCollect extends AppCompatActivity {
 
     EditText ageedit, heightedit,weightedit,genderedit,stepedit;
     Button skip,submit;
@@ -26,7 +26,7 @@ public class DetailsCollect extends AppCompatActivity implements View.OnClickLis
         //Create database UserDB database name
         sqlitedb=openOrCreateDatabase("UserDB", Context.MODE_PRIVATE, null);
         //create table UserTable
-        sqlitedb.execSQL("CREATE TABLE IF NOT EXISTS UserTable (Age INTEGER, Height FLOAT, Weight FLOAT, Gender VARCHAR(7), Stepgoal INTEGER)");
+        sqlitedb.execSQL("CREATE TABLE IF NOT EXISTS UserTable (EmpId INTEGER PRIMARY KEY, Age INTEGER, Height FLOAT, Weight FLOAT, Gender VARCHAR(7), Stepgoal INTEGER)");
 
         ageedit = findViewById(R.id.ageEdit);
         heightedit = findViewById(R.id.heightEdit);
@@ -65,8 +65,33 @@ public class DetailsCollect extends AppCompatActivity implements View.OnClickLis
             }
         });*/
     }
+    public void skipFunction(View v)
+    {
+        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        finish();
+    }
 
-    @Override
+    public void submitFunction(View v)
+    {
+        age = ageedit.getText().toString().trim();
+        height = heightedit.getText().toString().trim();
+        weight = weightedit.getText().toString().trim();
+        gender= genderedit.getText().toString().trim();
+        stepgoal= stepedit.getText().toString().trim();
+        if(age.equals("") || height.equals("") || weight.equals("") || gender.equals("") || stepgoal.equals(""))
+        {
+            Toast.makeText(this, "Fields can not be empty", Toast.LENGTH_SHORT).show();
+            //return;
+        }
+        else {
+            sqlitedb.execSQL("INSERT Into UserTable(Age,Height,Weight,Gender,Stepgoal)VALUES('" + age + "','" + height + "','" + weight + "','" + gender + "','" + stepgoal + "');");
+            Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            finish();
+        }
+    }
+
+    /*@Override
     public void onClick(View v) {
             if(v.getId() == R.id.skipbutton)
             {
@@ -89,8 +114,9 @@ public class DetailsCollect extends AppCompatActivity implements View.OnClickLis
                 {
                     sqlitedb.execSQL("INSERT Into UserTable(Age,Height,Weight,Gender,Stepgoal)VALUES('" + age + "','" + height + "','" + weight + "','" + gender + "','" + stepgoal +"');");
                     Toast.makeText(this, "Record Saved", Toast.LENGTH_SHORT).show();
-
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    finish();
                 }
             }
-    }
+    }*/
 }
