@@ -2,8 +2,10 @@ package com.example.stepcounter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -70,6 +72,21 @@ public class DetailsCollect extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         finish();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        @SuppressLint("Recycle") Cursor cursor = sqlitedb.rawQuery("Select * From UserTable Where EmpId=1", null);
+        if(cursor.moveToFirst())
+        {
+            ageedit.setText(cursor.getString(1));
+            heightedit.setText(cursor.getString(2));
+            weightedit.setText(cursor.getString(3));
+            genderedit.setText(cursor.getString(4));
+            stepedit.setText(cursor.getString(5));
+        }
+    }
+
 
     public void submitFunction(View v)
     {

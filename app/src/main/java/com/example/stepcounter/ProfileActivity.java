@@ -3,6 +3,7 @@ package com.example.stepcounter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -76,6 +77,20 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        @SuppressLint("Recycle") Cursor cursor = sqlitedb.rawQuery("Select * From UserTable Where EmpId=1", null);
+        if(cursor.moveToFirst())
+        {
+            ageedit.setText(cursor.getString(1));
+            heightedit.setText(cursor.getString(2));
+            weightedit.setText(cursor.getString(3));
+            genderedit.setText(cursor.getString(4));
+            stepedit.setText(cursor.getString(5));
+        }
+    }
+
     public void submitFunction(View v)
     {
         age = ageedit.getText().toString().trim();
@@ -84,13 +99,12 @@ public class ProfileActivity extends AppCompatActivity {
         gender= genderedit.getText().toString().trim();
         stepgoal= stepedit.getText().toString().trim();
 
-        Cursor cursorupdate= sqlitedb.rawQuery("Select * From UserTable Where EmpId=1",null);
+        @SuppressLint("Recycle") Cursor cursorupdate= sqlitedb.rawQuery("Select * From UserTable Where EmpId=1",null);
         if(cursorupdate.moveToFirst())
         {
             if(age.equals("") || height.equals("") || weight.equals("") || gender.equals("") || stepgoal.equals(""))
             {
                 Toast.makeText(this, "Fields can not be empty", Toast.LENGTH_SHORT).show();
-                return;
             }
             else
             {
