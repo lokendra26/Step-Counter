@@ -3,7 +3,11 @@ package com.example.stepcounter;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -16,6 +20,8 @@ public class SleepActivity extends AppCompatActivity {
     private TextView ageTextView;
     private TextView sleepView;
     int sleephour=0;
+    SQLiteDatabase sqlitedb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,10 @@ public class SleepActivity extends AppCompatActivity {
         ageTextView = findViewById(R.id.ageTextView);
         sleepView = findViewById(R.id.sleepView);
 
+        //Create database UserDB database name
+        sqlitedb=openOrCreateDatabase("UserDB", Context.MODE_PRIVATE, null);
+        //create table UserTable
+        sqlitedb.execSQL("CREATE TABLE IF NOT EXISTS UserTable (EmpId INTEGER PRIMARY KEY,Age INTEGER, Height FLOAT, Weight FLOAT, Gender VARCHAR(7), Stepgoal INTEGER)");
 
 
 
@@ -68,6 +78,11 @@ public class SleepActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        @SuppressLint("Recycle") Cursor cursor = sqlitedb.rawQuery("Select * From UserTable Where EmpId=1", null);
+        if(cursor.moveToFirst())
+        {
+            ageTextView.setText(cursor.getString(1));
+        }
         String ageString = ageTextView.getText().toString();
         int value=0;
         if (!"".equals(ageString)) {
