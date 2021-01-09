@@ -3,7 +3,11 @@ package com.example.stepcounter;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -79,6 +83,37 @@ public class MainActivity extends AppCompatActivity {
         }); */
 
 
+    }
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        //Check for user already exist
+        CheckUserExist();
+    }
+
+    private void CheckUserExist() {
+
+        SQLiteDatabase sqlitedb;
+
+        //Create database UserDB database name
+        sqlitedb=openOrCreateDatabase("UserDB", Context.MODE_PRIVATE, null);
+        //create table UserTable
+        sqlitedb.execSQL("CREATE TABLE IF NOT EXISTS UserTable (EmpId INTEGER PRIMARY KEY,Age INTEGER, Height FLOAT, Weight FLOAT, Gender VARCHAR(7), Stepgoal INTEGER)");
+
+        @SuppressLint("Recycle") Cursor cursor = sqlitedb.rawQuery("Select * From UserTable Where EmpId=1", null);
+        if(cursor.moveToFirst())
+        {
+
+            Login();
+
+        }
+    }
+
+    private void Login(){
+        Intent intent=new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void addDotsIndicator(int position) {

@@ -10,6 +10,7 @@
         android:id="@+id/include"
         layout="@layout/upper_profile" />
 
+    <!--
     <Button
         style="@style/TextColor"
         android:id="@+id/skipbutton"
@@ -22,6 +23,8 @@
         android:background="#0C99E9"
         android:layout_margin="10dp"
         android:padding="15dp"/>
+
+    -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

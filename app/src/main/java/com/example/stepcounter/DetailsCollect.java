@@ -37,7 +37,7 @@ public class DetailsCollect extends AppCompatActivity {
         stepedit= findViewById(R.id.stepEdit);
 
         submit = findViewById(R.id.submitbutton);
-        skip= findViewById(R.id.skipbutton);
+        //skip= findViewById(R.id.skipbutton);
         /*skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,11 +67,14 @@ public class DetailsCollect extends AppCompatActivity {
             }
         });*/
     }
-    public void skipFunction(View v)
+
+    /*public void skipFunction(View v)
     {
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+
         finish();
-    }
+
+    }*/
 
     @Override
     protected void onStart() {
