@@ -4,15 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SleepActivity">
+    tools:context=".SleepActivity"
+    android:background="@drawable/gradient_background">
 
     <TextView
+        style="@style/TextColor"
         android:id="@+id/sleepView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="80sp"
         android:textStyle="bold"
         android:layout_centerInParent="true"/>
+
+    <TextView
+        style="@style/TextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily sleep intake"
+        android:textSize="30sp"
+        android:layout_below="@+id/sleepView"
+        android:layout_centerHorizontal="true"/>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -25,15 +37,19 @@
         android:layout_alignParentBottom="true"/>
 
     <TextView
+        style="@style/TextColor"
         android:id="@+id/ageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Age"
+        android:text="Age (Year)"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40sp"
+        />
 
     <TextView
+        style="@style/TextColor"
         android:id="@+id/ageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
