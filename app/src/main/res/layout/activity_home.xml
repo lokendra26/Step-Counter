@@ -5,7 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
-    android:layout_weight="10">
+    android:layout_weight="10"
+    android:background="@drawable/gradient_background">
+
+    <TextView
+        android:id="@+id/progress_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        style="@style/TextColor"/>
 
     <RelativeLayout
         android:id="@+id/progress_layout"
@@ -33,11 +43,32 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:gravity="center"/>
+            android:gravity="center"
+            style="@style/TextColor"/>
 
-            <!--android:layout_centerInParent="true"-->/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Step"
+            style="@style/TextColor"
+            android:layout_marginTop="25dp"
+            android:textSize="16dp"
+            android:layout_below="@+id/textViewStepCounter"/>
+
+            <!--android:layout_centerInParent="true"-->
+
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/stepText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        style="@style/TextColor"
+        android:layout_below="@+id/progress_layout"
+        android:textSize="20dp"/>
 
 
 
