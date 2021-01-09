@@ -38,9 +38,9 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_desc = {
-            "Count your daily steps with us in the app.",
-            "Determine your daily sleep hours with us in the app.",
-            "Determine your daily water intake with us in the app."
+            "Count your daily steps.",
+            "Determine your daily sleep hours.",
+            "Determine your daily water intake."
     };
 
     @Override
