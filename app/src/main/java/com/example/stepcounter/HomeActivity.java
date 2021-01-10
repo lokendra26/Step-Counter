@@ -34,6 +34,7 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
     int stepCount,stepGoalTotal;
     private TextView stepText;
     SQLiteDatabase sqlitedb;
+    boolean appJustStarted=true;
 
     private ProgressBar progressBar;
 
@@ -124,6 +125,7 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onStart() {
         super.onStart();
+        //reset();
         @SuppressLint("Recycle") Cursor cursor = sqlitedb.rawQuery("Select * From UserTable Where EmpId=1", null);
         if(cursor.moveToFirst())
         {
@@ -132,37 +134,61 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
             stepGoalTotal = Integer.parseInt(cursor.getString(5));
         }
     }
+    /*protected void reset()
+    {
+        appJustStarted=true;
+
+    }*/
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
 
 
+        /*if(appJustStarted==true)
+        {
+            sensorEvent.values[0]=0;
+            appJustStarted=false;
+        }*/
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                if(sensorEvent.sensor == mStepCounter) {
+                    stepCount = (int) sensorEvent.values[0];
+                    textViewStepCounter.setText(String.valueOf(stepCount));
+                }
                 if(stepCount<=stepGoalTotal) {
-
-                    if(sensorEvent.sensor == mStepCounter) {
-                        stepCount = (int) sensorEvent.values[0];
-                        textViewStepCounter.setText(String.valueOf(stepCount));
-                    }
 
                     progressBar.setProgress(stepCount*100/stepGoalTotal);
 
                     handler.postDelayed(this,0);
 
-                    //progress percent
-                    if(stepCount<=6000) {
-                        progressPercent.setText(String.valueOf(stepCount*100/stepGoalTotal)+"%");
-                    }
-                    else {
-                        progressPercent.setText("100%");
-                    }
+
                 }
                 else {
                     handler.removeCallbacks(this);
                 }
+                //progress percent
+                if(stepCount<=stepGoalTotal) {
+                    progressPercent.setText(String.valueOf(stepCount*100/stepGoalTotal)+"%");
+                    progressBar.setProgress(stepCount*100/stepGoalTotal);
+                }
+                else {
+                    progressPercent.setText("100%");
+                    progressBar.setProgress(100);
+                }
+
+
+                NotificationCompat.Builder mbuilder = (NotificationCompat.Builder)
+                        new NotificationCompat.Builder(getApplicationContext())
+                                .setSmallIcon(R.drawable.stepcounter)
+                                .setContentTitle("Step Counter \t"+stepCount)
+                                .setContentText("Step Counter app is active...");
+
+                NotificationManager notificationManager = (NotificationManager)
+                        getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(0,mbuilder.build());
+
 
             }
         },0);
@@ -178,28 +204,22 @@ public class HomeActivity extends AppCompatActivity implements SensorEventListen
         super.onResume();
         if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
         {
-            sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
         }
 
 
 
-        NotificationCompat.Builder mbuilder = (NotificationCompat.Builder)
-                new NotificationCompat.Builder(getApplicationContext())
-                        .setSmallIcon(R.drawable.stepcounter)
-                        .setContentTitle("Step Counter")
-                        .setContentText("Step Counter app is active...");
 
-        NotificationManager notificationManager = (NotificationManager)
-                getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0,mbuilder.build());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
+
+        //below code will stop counting the steps after changing from homw activity
+        /*if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null)
         {
             sensorManager.unregisterListener(this, mStepCounter);
-        }
+        }*/
     }
 }
